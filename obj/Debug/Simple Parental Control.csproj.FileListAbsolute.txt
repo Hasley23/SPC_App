@@ -8,5 +8,5 @@ C:\Users\valer\source\repos\Simple Parental Control\obj\Debug\Simple Parental Co
 C:\Users\valer\source\repos\Simple Parental Control\obj\Debug\Simple Parental Control.csproj.CoreCompileInputs.cache
 C:\Users\valer\source\repos\Simple Parental Control\obj\Debug\Simple Parental Control.exe
 C:\Users\valer\source\repos\Simple Parental Control\obj\Debug\Simple Parental Control.pdb
-C:\Users\valer\source\repos\Simple Parental Control\obj\Debug\Simple_Parental_Control.SimplePC.resources
 C:\Users\valer\source\repos\Simple Parental Control\obj\Debug\Simple_Parental_Control.TimeMatrix.resources
+C:\Users\valer\source\repos\Simple Parental Control\obj\Debug\Simple_Parental_Control.wSimplePC.resources

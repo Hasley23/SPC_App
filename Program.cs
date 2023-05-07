@@ -16,7 +16,7 @@ namespace Simple_Parental_Control
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new SimplePC());
+            Application.Run(new wSimplePC());
         }
     }
 }

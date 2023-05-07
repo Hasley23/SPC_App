@@ -12,7 +12,7 @@ namespace Simple_Parental_Control
 {
     public partial class TimeMatrix : UserControl
     {
-        public List<CheckBox> chbox_list;
+        private List<CheckBox> chbox_list;
 
         public TimeMatrix()
         {
@@ -22,6 +22,7 @@ namespace Simple_Parental_Control
                 chbox_list.Add(new CheckBox());
                 chbox_list[i].Appearance = Appearance.Button;
                 chbox_list[i].Size = new Size(32, 32);
+                chbox_list[i].CheckStateChanged += checkBoxEvent;
             }
         }
 
@@ -33,6 +34,10 @@ namespace Simple_Parental_Control
                 x += 33;
                 this.Controls.Add(chbox_list[i]);
             }
+        }
+
+        private void checkBoxEvent(object sender, EventArgs e) {
+            //this. = Color.Yellow;
         }
     }
 }
