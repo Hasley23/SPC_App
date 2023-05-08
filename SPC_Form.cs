@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Management;
+using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,6 +15,7 @@ namespace Simple_Parental_Control
     public partial class wSimplePC : Form
     {
         TimeMatrix[] matrix;
+        ProcessStartInfo processStartInfo = new ProcessStartInfo();
 
         public wSimplePC()
         {
@@ -36,35 +39,12 @@ namespace Simple_Parental_Control
                 posCtr += 33;
                 panel1.Controls.Add(labels[i]);
             }
-
-            Label[] weekDays = new Label[24];
-
+            
             int it = 0;
             int margin = 35;
             foreach (TimeMatrix m in matrix)
             {
                 m.Location = new Point(panel1.Location.X+10, margin);
-                //weekDays[it] = new Label();
-                //weekDays[it].Size = new Size(32, 32);
-                //weekDays[it].Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Bold);
-                //weekDays[it].Location = new Point(20, margin + 7);
-                /*
-                if (it == 0)
-                    weekDays[it].Text = "ПН";
-                else if (it == 1)
-                    weekDays[it].Text = "ВТ";
-                else if (it == 2)
-                    weekDays[it].Text = "СР";
-                else if (it == 3)
-                    weekDays[it].Text = "ЧТ";
-                else if (it == 4)
-                    weekDays[it].Text = "ПТ";
-                else if (it == 5)
-                    weekDays[it].Text = "CБ";
-                else
-                    weekDays[it].Text = "ВС";
-                */
-                //panel1.Controls.Add(weekDays[it]);
                 panel1.Controls.Add(m);
                 margin += 35;
                 it++;
@@ -73,7 +53,14 @@ namespace Simple_Parental_Control
 
         private void SimplePC_Load(object sender, EventArgs e)
         {
-
+            SelectQuery query = new SelectQuery("Win32_UserAccount");
+            ManagementObjectSearcher searcher = new ManagementObjectSearcher(query);
+            foreach (ManagementObject envVar in searcher.Get())
+            {
+                comboBoxUsers.Items.Add(envVar["Name"]);
+            }
+            comboBoxUsers.SelectedIndex = 0;
+            processStartInfo = new ProcessStartInfo();
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -85,6 +72,22 @@ namespace Simple_Parental_Control
         private void panel2_Paint(object sender, PaintEventArgs e)
         {
             ControlPaint.DrawBorder(e.Graphics, panel2.DisplayRectangle, Color.Gray, ButtonBorderStyle.Solid);
+        }
+
+        private void setParentalControl_Click(object sender, EventArgs e)
+        {
+            string choosedUser = comboBoxUsers.Items[comboBoxUsers.SelectedIndex].ToString();
+            MessageBox.Show(choosedUser);
+
+            startHiddenCommand();
+        }
+
+        private void startHiddenCommand() {
+            processStartInfo.FileName = "cmd.exe";
+            // change to hidden
+            processStartInfo.WindowStyle = ProcessWindowStyle.Normal;
+            processStartInfo.Arguments = @"/k net user";
+            Process.Start(processStartInfo);
         }
     }
 }
