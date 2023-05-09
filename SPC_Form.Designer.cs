@@ -39,9 +39,10 @@
             this.hint_time = new System.Windows.Forms.Label();
             this.setParentalControl = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.UsersListBoxLabel = new System.Windows.Forms.Label();
-            this.infoBox = new System.Windows.Forms.RichTextBox();
             this.comboBoxUsers = new System.Windows.Forms.ComboBox();
+            this.infoBox = new System.Windows.Forms.RichTextBox();
+            this.UsersListBoxLabel = new System.Windows.Forms.Label();
+            this.resetParentalControl = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -146,6 +147,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.resetParentalControl);
             this.panel2.Controls.Add(this.comboBoxUsers);
             this.panel2.Controls.Add(this.infoBox);
             this.panel2.Controls.Add(this.UsersListBoxLabel);
@@ -156,14 +158,13 @@
             this.panel2.TabIndex = 2;
             this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
-            // UsersListBoxLabel
+            // comboBoxUsers
             // 
-            this.UsersListBoxLabel.AutoSize = true;
-            this.UsersListBoxLabel.Location = new System.Drawing.Point(6, 7);
-            this.UsersListBoxLabel.Name = "UsersListBoxLabel";
-            this.UsersListBoxLabel.Size = new System.Drawing.Size(46, 16);
-            this.UsersListBoxLabel.TabIndex = 3;
-            this.UsersListBoxLabel.Text = "Users:";
+            this.comboBoxUsers.FormattingEnabled = true;
+            this.comboBoxUsers.Location = new System.Drawing.Point(9, 26);
+            this.comboBoxUsers.Name = "comboBoxUsers";
+            this.comboBoxUsers.Size = new System.Drawing.Size(296, 24);
+            this.comboBoxUsers.TabIndex = 5;
             // 
             // infoBox
             // 
@@ -175,13 +176,24 @@
             this.infoBox.TabIndex = 4;
             this.infoBox.Text = "Select the time when the user can use the computer in the table below";
             // 
-            // comboBoxUsers
+            // UsersListBoxLabel
             // 
-            this.comboBoxUsers.FormattingEnabled = true;
-            this.comboBoxUsers.Location = new System.Drawing.Point(9, 26);
-            this.comboBoxUsers.Name = "comboBoxUsers";
-            this.comboBoxUsers.Size = new System.Drawing.Size(296, 24);
-            this.comboBoxUsers.TabIndex = 5;
+            this.UsersListBoxLabel.AutoSize = true;
+            this.UsersListBoxLabel.Location = new System.Drawing.Point(6, 7);
+            this.UsersListBoxLabel.Name = "UsersListBoxLabel";
+            this.UsersListBoxLabel.Size = new System.Drawing.Size(46, 16);
+            this.UsersListBoxLabel.TabIndex = 3;
+            this.UsersListBoxLabel.Text = "Users:";
+            // 
+            // resetParentalControl
+            // 
+            this.resetParentalControl.Location = new System.Drawing.Point(1060, 71);
+            this.resetParentalControl.Name = "resetParentalControl";
+            this.resetParentalControl.Size = new System.Drawing.Size(96, 40);
+            this.resetParentalControl.TabIndex = 6;
+            this.resetParentalControl.Text = "Reset";
+            this.resetParentalControl.UseVisualStyleBackColor = true;
+            this.resetParentalControl.Click += new System.EventHandler(this.resetParentalControl_Click);
             // 
             // wSimplePC
             // 
@@ -222,6 +234,7 @@
         private System.Windows.Forms.Label UsersListBoxLabel;
         private System.Windows.Forms.RichTextBox infoBox;
         private System.Windows.Forms.ComboBox comboBoxUsers;
+        private System.Windows.Forms.Button resetParentalControl;
     }
 }
 

@@ -12,7 +12,7 @@ namespace Simple_Parental_Control
 {
     public partial class TimeMatrix : UserControl
     {
-        private List<CheckBox> chbox_list;
+        public List<CheckBox> chbox_list;
 
         public TimeMatrix()
         {

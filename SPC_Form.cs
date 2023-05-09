@@ -9,13 +9,14 @@ using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Security.Principal;
 
 namespace Simple_Parental_Control
 {
     public partial class wSimplePC : Form
     {
-        TimeMatrix[] matrix;
-        ProcessStartInfo processStartInfo = new ProcessStartInfo();
+        private TimeMatrix[] matrix;
+        private ProcessStartInfo processStartInfo = new ProcessStartInfo();
 
         public wSimplePC()
         {
@@ -27,24 +28,25 @@ namespace Simple_Parental_Control
             {
                 matrix[i] = new TimeMatrix();
             }
-            
+
             Label[] labels = new Label[24]; // Размер рейбла 32, 16
-            int posCtr = panel1.Location.X+68;
-            for (int i = 0; i < labels.Length; i++) {
-                labels[i]= new Label();
+            int posCtr = panel1.Location.X + 68;
+            for (int i = 0; i < labels.Length; i++)
+            {
+                labels[i] = new Label();
                 labels[i].Size = new Size(32, 16);
-                labels[i].Text = i.ToString().Length < 2  ?  "0"+ i.ToString() : i.ToString();
+                labels[i].Text = i.ToString().Length < 2 ? "0" + i.ToString() : i.ToString();
                 labels[i].Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Bold);
                 labels[i].Location = new Point(posCtr, panel2.Location.Y);
                 posCtr += 33;
                 panel1.Controls.Add(labels[i]);
             }
-            
+
             int it = 0;
             int margin = 35;
             foreach (TimeMatrix m in matrix)
             {
-                m.Location = new Point(panel1.Location.X+10, margin);
+                m.Location = new Point(panel1.Location.X + 10, margin);
                 panel1.Controls.Add(m);
                 margin += 35;
                 it++;
@@ -76,18 +78,115 @@ namespace Simple_Parental_Control
 
         private void setParentalControl_Click(object sender, EventArgs e)
         {
-            string choosedUser = comboBoxUsers.Items[comboBoxUsers.SelectedIndex].ToString();
-            MessageBox.Show(choosedUser);
 
-            startHiddenCommand();
+            string choosedUser = comboBoxUsers.Items[comboBoxUsers.SelectedIndex].ToString();
+
+            setHiddenCommand(choosedUser);
         }
 
-        private void startHiddenCommand() {
+        private void setHiddenCommand(string user)
+        {
+            bool next = false;
+            foreach (TimeMatrix tm in matrix)
+                foreach (CheckBox ch in tm.chbox_list)
+                    if (ch.Checked)
+                        next = true;
+
+            if (!next) {
+                MessageBox.Show("Wrong input!");
+                return;
+            }
+
             processStartInfo.FileName = "cmd.exe";
             // change to hidden
             processStartInfo.WindowStyle = ProcessWindowStyle.Normal;
-            processStartInfo.Arguments = @"/k net user";
+
+            // command constructor below
+            bool Monday = false;
+            bool Tuesday = false;
+            bool Wednesday = false;
+            bool Thursday = false;
+            bool Friday = false;
+            bool Saturday = false;
+            bool Sunday = false;
+
+            for (int i = 0; i < matrix.Length; i++)
+            {
+                for (int j = 0; j < matrix[i].chbox_list.Count; j++)
+                {
+                    if (matrix[i].chbox_list[j].Checked) { 
+                        switch (i) { 
+                            case 0: Monday = true; break;
+                            case 1: Tuesday = true; break;
+                            case 2: Wednesday = true; break;
+                            case 3: Thursday = true; break;
+                            case 4: Friday = true; break;
+                            case 5: Saturday = true; break;
+                            case 6: Sunday = true; break;
+                        }
+                    }
+                }
+            }
+
+            string command = @"/k net user " + user + " /time:";
+            if (Monday)
+            {
+                command += "M";
+                command += ",time;";
+            }
+            if (Tuesday)
+            {
+                command += "T";
+                command += ",time;";
+            }
+            if (Wednesday) 
+            { 
+                command += "W";
+                command += ",time;";
+            }
+            if (Thursday) 
+            {
+                command += "Th";
+                command += ",time;";
+            }
+            if (Friday)
+            {
+                command += "F";
+                command += ",time;";
+            }
+            if (Saturday)
+            {
+                command += "S";
+                command += ",time;";
+            }
+            if (Sunday) 
+            { 
+                command += "Su";
+                command += ",time;";
+            }
+
+            //MessageBox.Show(command);
+
+            processStartInfo.Arguments = command;
+            
             Process.Start(processStartInfo);
+        }
+
+        private void resetParentalControl_Click(object sender, EventArgs e)
+        {
+            string choosedUser = comboBoxUsers.Items[comboBoxUsers.SelectedIndex].ToString();
+            
+            resetHiddenCommand(choosedUser);
+        }
+
+        private void resetHiddenCommand(string user)
+        {
+            processStartInfo.FileName = "cmd.exe";
+            // change to hidden
+            processStartInfo.WindowStyle = ProcessWindowStyle.Normal;
+            processStartInfo.Arguments = @"/k net user " + user + " /time:all";
+            Process.Start(processStartInfo);
+            MessageBox.Show("Resetting time for " + user + " was successful!");
         }
     }
 }
