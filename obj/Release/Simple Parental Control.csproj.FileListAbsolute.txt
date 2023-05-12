@@ -1,0 +1,12 @@
+C:\Users\valer\source\repos\Simple Parental Control\bin\Release\Simple Parental Control.exe.config
+C:\Users\valer\source\repos\Simple Parental Control\bin\Release\Simple Parental Control.exe
+C:\Users\valer\source\repos\Simple Parental Control\bin\Release\Simple Parental Control.pdb
+C:\Users\valer\source\repos\Simple Parental Control\obj\Release\Simple Parental Control.csproj.AssemblyReference.cache
+C:\Users\valer\source\repos\Simple Parental Control\obj\Release\Simple Parental Control.csproj.SuggestedBindingRedirects.cache
+C:\Users\valer\source\repos\Simple Parental Control\obj\Release\Simple_Parental_Control.wSimplePC.resources
+C:\Users\valer\source\repos\Simple Parental Control\obj\Release\Simple_Parental_Control.Properties.Resources.resources
+C:\Users\valer\source\repos\Simple Parental Control\obj\Release\Simple_Parental_Control.TimeMatrix.resources
+C:\Users\valer\source\repos\Simple Parental Control\obj\Release\Simple Parental Control.csproj.GenerateResource.cache
+C:\Users\valer\source\repos\Simple Parental Control\obj\Release\Simple Parental Control.csproj.CoreCompileInputs.cache
+C:\Users\valer\source\repos\Simple Parental Control\obj\Release\Simple Parental Control.exe
+C:\Users\valer\source\repos\Simple Parental Control\obj\Release\Simple Parental Control.pdb

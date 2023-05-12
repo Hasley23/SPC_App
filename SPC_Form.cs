@@ -129,15 +129,33 @@ namespace Simple_Parental_Control
             }
 
             string command = @"/k net user " + user + " /time:";
+            string time = "";
             if (Monday)
             {
                 command += "M";
-                command += ",time;";
+                foreach (CheckBox ch in matrix[0].chbox_list)
+                {
+                    if (ch.Checked)
+                    {
+                        time += matrix[0].chbox_list.IndexOf(ch).ToString() + ":00-";
+                    }
+                }
+                time = time.Remove(time.Length-1);
+                command += "," + time + ";";
             }
+            time = "";
             if (Tuesday)
             {
                 command += "T";
-                command += ",time;";
+                foreach (CheckBox ch in matrix[0].chbox_list)
+                {
+                    if (ch.Checked)
+                    {
+                        time += matrix[1].chbox_list.IndexOf(ch).ToString() + ":00-";
+                    }
+                }
+                time = time.Remove(time.Length - 1);
+                command += "," + time + ";";
             }
             if (Wednesday) 
             { 
@@ -167,8 +185,8 @@ namespace Simple_Parental_Control
 
             //MessageBox.Show(command);
 
+            //cmd exec
             processStartInfo.Arguments = command;
-            
             Process.Start(processStartInfo);
         }
 
