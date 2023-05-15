@@ -133,61 +133,67 @@ namespace Simple_Parental_Control
             if (Monday)
             {
                 command += "M";
-                foreach (CheckBox ch in matrix[0].chbox_list)
-                {
-                    if (ch.Checked)
-                    {
-                        time += matrix[0].chbox_list.IndexOf(ch).ToString() + ":00-";
-                    }
-                }
-                time = time.Remove(time.Length-1);
-                command += "," + time + ";";
+                command = comandBuilder(command,0);
             }
             time = "";
             if (Tuesday)
             {
                 command += "T";
-                foreach (CheckBox ch in matrix[0].chbox_list)
-                {
-                    if (ch.Checked)
-                    {
-                        time += matrix[1].chbox_list.IndexOf(ch).ToString() + ":00-";
-                    }
-                }
-                time = time.Remove(time.Length - 1);
-                command += "," + time + ";";
+                command = comandBuilder(command,1);
             }
             if (Wednesday) 
             { 
                 command += "W";
-                command += ",time;";
+                command = comandBuilder(command,2);
             }
             if (Thursday) 
             {
                 command += "Th";
-                command += ",time;";
+                command = comandBuilder(command,3);
             }
             if (Friday)
             {
                 command += "F";
-                command += ",time;";
+                command = comandBuilder(command,4);
             }
             if (Saturday)
             {
                 command += "S";
-                command += ",time;";
+                command = comandBuilder(command,5);
             }
             if (Sunday) 
             { 
                 command += "Su";
-                command += ",time;";
+                command = comandBuilder(command,6);
             }
 
+            infoBox.Text = command;
             //MessageBox.Show(command);
 
             //cmd exec
             processStartInfo.Arguments = command;
             Process.Start(processStartInfo);
+        }
+
+        // prepare time digits
+        private string comandBuilder(string command, int index) {
+            string time = String.Empty;
+            foreach (CheckBox ch in matrix[index].chbox_list)
+            {
+                if (ch.Checked)
+                {
+                    if (matrix[index].chbox_list.IndexOf(ch) < 10)
+                        time += "0";
+                    time += matrix[index].chbox_list.IndexOf(ch).ToString() + ":00-";
+                }
+            }
+            time = time.Remove(time.Length - 1);
+            if (time.Length > 9)
+            {
+                time = time.Substring(0, 5) + "-" + time.Substring(time.Length - 5, 5);
+            }
+            command += "," + time + ";";
+            return command;
         }
 
         private void resetParentalControl_Click(object sender, EventArgs e)
